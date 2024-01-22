@@ -21,7 +21,7 @@ class LivroController{
 
       const authorOfBook = await autor.findById(autorId);
 
-      const novoLivro = await livro.create({titulo, editora, preco, paginas, autor: {...authorOfBook._doc} });
+      const novoLivro = await livro.create({titulo, editora, preco, paginas, autor: {...authorOfBook} });
 
       res.status(201).json({
         message: "Livro criado com sucesso",
