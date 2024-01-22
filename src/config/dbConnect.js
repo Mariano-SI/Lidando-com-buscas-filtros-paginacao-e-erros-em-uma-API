@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 async function databaseConnection(){
-    mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+  mongoose.connect(process.env.MONGO_CONNECTION_STRING);
 
-    return mongoose.connection;
+  return mongoose.connection;
 } 
 
 export default databaseConnection;
