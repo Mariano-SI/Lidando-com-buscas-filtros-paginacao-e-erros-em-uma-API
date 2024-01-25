@@ -7,7 +7,6 @@ routes.get("/books", LivroController.listarLivros);
 
 routes.get("/books/busca", LivroController.listarLivrosPorEditora);
 
-routes.get("/books/:id", LivroController.listarLivroPorId);
 
 routes.get("/books/:id", LivroController.listarLivroPorId);
 
