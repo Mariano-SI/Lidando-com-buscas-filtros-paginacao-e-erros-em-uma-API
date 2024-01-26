@@ -1,5 +1,6 @@
 import livro from "../models/Livro.js";
 import { autor } from "../models/Autor.js";
+import NotFoundError from "../errors/NotFoundErros.js";
 
 class LivroController{
   constructor(){
@@ -38,7 +39,7 @@ class LivroController{
       const livroBuscado = await livro.findById(id);
 
       if(!livroBuscado){
-        res.status(404).json({message: "Livro não encontrado!"});
+        throw new NotFoundError("O livro não foi encontrado");
       }
       res.status(200).json(livroBuscado);
     } catch (error) {
@@ -49,6 +50,13 @@ class LivroController{
   static async atualizarLivro(req, res, next){
     try {
       const {id} = req.params;
+
+      const bookToUpdate = await livro.findById(id);
+
+      if(!bookToUpdate){
+        throw new NotFoundError("Livro não encontrado!");
+      }
+      
       await livro.findByIdAndUpdate(id, req.body);
       res.status(201).json({message: "Livro atualizado com sucesso!"});
     } catch (error) {
@@ -59,6 +67,13 @@ class LivroController{
   static async deletarLivroPorId(req, res, next){
     try {
       const {id} = req.params;
+
+      const bookToDelete = await livro.findById(id);
+
+      if(!bookToDelete){
+        throw new NotFoundError("Livro não encontrado!");
+      }
+
       await livro.findByIdAndDelete(id);
       res.status(200).json({message: "Livro excluido com sucesso!"});
     } catch (error) {
