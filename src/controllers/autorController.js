@@ -1,3 +1,4 @@
+import NotFoundError from "../errors/NotFoundErros.js";
 import {autor} from "../models/Autor.js";
 
 class AutorController{
@@ -34,7 +35,7 @@ class AutorController{
       const autorBuscado = await autor.findById(id);
 
       if(!autorBuscado){
-        res.status(404).json({message: "Autor não encontrado!"});
+        throw new NotFoundError("Autor não encontrado!");
       }
       res.status(200).json(autorBuscado);
     } catch (error) {

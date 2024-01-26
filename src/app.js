@@ -2,6 +2,7 @@ import express from "express";
 import databaseConnection from "./config/dbConnect.js";
 import routes from "./routes/index.js";
 import errorsHandler from "./middlewares/errorsHandler.js";
+import pageNotFound from "./middlewares/pageNotFound.js";
 
 const connection = await databaseConnection();
 
@@ -16,6 +17,8 @@ connection.once("open", () =>{
 const app = express();
 
 routes(app);
+
+app.use(pageNotFound);
 
 // eslint-disable-next-line no-unused-vars
 app.use(errorsHandler);
