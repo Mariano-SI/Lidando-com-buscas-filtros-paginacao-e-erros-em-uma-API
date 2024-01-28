@@ -7,7 +7,7 @@ import NotFoundError from "../errors/NotFoundErros.js";
 // eslint-disable-next-line no-unused-vars
 function errorsHandler(error, req, res, next){
 
-  //console.error(error);
+  console.error(error);
 
   if(error instanceof mongoose.Error.CastError){
     new BadRequestError("Um o mais dados fornecidos estão incorretos.").sendResponse(res);
