@@ -110,6 +110,7 @@ class LivroController{
         const result = await livro.find(search);
         
         res.status(200).json(result);
+        return;
       }
       
       res.status(200).json([]);
