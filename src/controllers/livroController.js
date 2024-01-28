@@ -87,7 +87,7 @@ class LivroController{
 
       const regex = new RegExp(titulo, "i");
       
-      const search = {};
+      let search = {};
 
       if(editora) search.editora = editora;
   
@@ -99,14 +99,20 @@ class LivroController{
       if(authorName){
         const searchedAuthor = await autor.findOne({nome: authorName});
 
-        if(searchedAuthor){
+        if(!searchedAuthor){
+          search = null;
+        }else{
           search.autor =  searchedAuthor;
         }
       }
+      res.status(200).json([]);
+      
+      if(search){
+        const result = await livro.find(search);
+  
+        res.status(200).json(result);
+      }
 
-      const result = await livro.find(search);
-
-      res.status(200).json(result);
     } catch (error) {
       next(error);
     }
