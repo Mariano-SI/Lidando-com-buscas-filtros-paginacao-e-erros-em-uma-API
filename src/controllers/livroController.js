@@ -105,14 +105,14 @@ class LivroController{
           search.autor =  searchedAuthor;
         }
       }
-      res.status(200).json([]);
       
       if(search){
         const result = await livro.find(search);
-  
+        
         res.status(200).json(result);
       }
-
+      
+      res.status(200).json([]);
     } catch (error) {
       next(error);
     }
