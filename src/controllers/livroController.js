@@ -83,7 +83,7 @@ class LivroController{
 
   static async listarLivrosPorFiltro(req, res, next){
     try {
-      const {editora, titulo, minPags, maxPags} = req.query;
+      const {editora, titulo, minPags, maxPags, authorName} = req.query;
 
       const regex = new RegExp(titulo, "i");
       
@@ -95,6 +95,14 @@ class LivroController{
 
       if(minPags) search.paginas = {$gte: minPags};
       if(maxPags) search.paginas = {$lte: maxPags};
+
+      if(authorName){
+        const searchedAuthor = await autor.findOne({nome: authorName});
+
+        if(searchedAuthor){
+          search.autor =  searchedAuthor;
+        }
+      }
 
       const result = await livro.find(search);
 
