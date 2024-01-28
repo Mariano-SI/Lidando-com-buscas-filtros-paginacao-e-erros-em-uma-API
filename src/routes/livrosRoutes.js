@@ -5,7 +5,7 @@ const routes = express.Router();
 
 routes.get("/books", LivroController.listarLivros);
 
-routes.get("/books/busca", LivroController.listarLivrosPorEditora);
+routes.get("/books/search", LivroController.listarLivrosPorFiltro);
 
 routes.get("/books/:id", LivroController.listarLivroPorId);
 
