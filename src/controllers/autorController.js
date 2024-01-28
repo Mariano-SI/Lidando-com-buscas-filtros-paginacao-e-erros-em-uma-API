@@ -1,5 +1,5 @@
 import NotFoundError from "../errors/NotFoundErros.js";
-import {autor} from "../models/Autor.js";
+import {autor} from "../models/index.js";
 
 class AutorController{
   constructor(){
