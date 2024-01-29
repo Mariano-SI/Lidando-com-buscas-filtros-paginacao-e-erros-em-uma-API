@@ -20,8 +20,6 @@ routes(app);
 
 app.use(pageNotFound);
 
-// eslint-disable-next-line no-unused-vars
 app.use(errorsHandler);
-
 
 export default app;

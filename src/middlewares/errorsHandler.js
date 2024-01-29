@@ -15,6 +15,8 @@ function errorsHandler(error, req, res, next){
     new ValidationError(error).sendResponse(res);
   }else if(error instanceof NotFoundError){
     error.sendResponse(res);
+  }else if(error instanceof BadRequestError){
+    error.sendResponse(res);
   }else{
     new ErroBase().sendResponse(res);
   }

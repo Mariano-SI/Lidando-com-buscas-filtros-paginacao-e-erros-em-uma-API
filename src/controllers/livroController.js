@@ -1,6 +1,7 @@
 import {livro} from "../models/index.js";
 import { autor } from "../models/index.js";
 import NotFoundError from "../errors/NotFoundErros.js";
+import BadRequestError from "../errors/BadRequestError.js";
 
 class LivroController{
   constructor(){
@@ -9,8 +10,18 @@ class LivroController{
 
   static async listarLivros(req, res, next){
     try {
-      const allBooks = await livro.find({});
-      res.status(200).json(allBooks);
+      const {pageSize = 5, currentPage = 1} = req.query;
+
+      if(pageSize > 0 && currentPage> 0){
+        const allBooks = await livro.find({})
+          .skip((currentPage - 1) * pageSize) //salta x livros, se a pagina for = 1, entao nao salta ninguem.
+          .limit(pageSize); // e traga [pageSize] livros.
+  
+        res.status(200).json(allBooks);
+      }else{
+        throw new BadRequestError("Os parametros de paginação devem ser do tipo numerico e positivos.");
+      }
+
     } catch (error) {
       next(error);
     }
