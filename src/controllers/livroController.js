@@ -10,10 +10,16 @@ class LivroController{
 
   static async listarLivros(req, res, next){
     try {
-      const {pageSize = 5, currentPage = 1} = req.query;
+      const {pageSize = 5, currentPage = 1, sortedBy = "_id", order = "asc"} = req.query;
+
+      const ordermap = {
+        asc: 1,
+        desc: -1
+      };
 
       if(pageSize > 0 && currentPage> 0){
         const allBooks = await livro.find({})
+          .sort({[sortedBy]: ordermap[order]})
           .skip((currentPage - 1) * pageSize) //salta x livros, se a pagina for = 1, entao nao salta ninguem.
           .limit(pageSize); // e traga [pageSize] livros.
   
