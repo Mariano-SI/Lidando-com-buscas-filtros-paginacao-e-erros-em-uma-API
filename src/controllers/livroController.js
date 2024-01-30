@@ -39,6 +39,10 @@ class LivroController{
 
       const authorOfBook = await autor.findById(autorId);
 
+      if(!authorOfBook){
+        throw new BadRequestError("Autor não encontrado");
+      }
+
       const novoLivro = await livro.create({titulo, editora, preco, paginas, autor: {...authorOfBook._doc} });
 
       res.status(201).json({
